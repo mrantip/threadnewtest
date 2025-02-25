@@ -6,6 +6,7 @@ import org.openqa.selenium.WebDriver;
 
 public class ElementsPage extends BasePage {
     private final By textBox = By.xpath("//span[text()='Text Box']");
+    private final By checkBox = By.xpath("//span[text()='Check Box']");
 
     public ElementsPage(WebDriver driver) {
         super(driver);
@@ -14,6 +15,10 @@ public class ElementsPage extends BasePage {
     public void goToTextBox() {
         driver.findElement(textBox).click();
 //        return new TextBoxPage(driver);
+    }
+
+    public void goToCheckBox() {
+        driver.findElement(checkBox).click();
     }
 
 }
