@@ -60,4 +60,23 @@ public class ElementsTests extends BaseTest{
         checkBoxPage.collapseAll();
         Assertions.assertEquals(1, checkBoxPage.getUnfoldList().size());
     }
+
+    @Test
+    public void checkAllTest(){
+        MainPage mainPage = new MainPage(driver);
+        mainPage.goToElements().goToCheckBox();
+        CheckBoxPage checkBoxPage = new CheckBoxPage(driver);
+        checkBoxPage.expandAll();
+        checkBoxPage.checkAll();
+
+    }
+
+    @Test
+    public void randomCheckTest(){
+        MainPage mainPage = new MainPage(driver);
+        mainPage.goToElements().goToCheckBox();
+        CheckBoxPage checkBoxPage = new CheckBoxPage(driver);
+        checkBoxPage.expandAll();
+        checkBoxPage.checkRandom();
+    }
 }
