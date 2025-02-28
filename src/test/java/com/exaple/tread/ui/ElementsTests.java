@@ -68,6 +68,7 @@ public class ElementsTests extends BaseTest{
         CheckBoxPage checkBoxPage = new CheckBoxPage(driver);
         checkBoxPage.expandAll();
         checkBoxPage.checkAll();
+        Assertions.assertIterableEquals(checkBoxPage.getUnfoldListText(), checkBoxPage.getResultListText());
 
     }
 

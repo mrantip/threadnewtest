@@ -11,6 +11,7 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 import java.time.Duration;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 import java.util.Random;
 
 @Getter
@@ -21,6 +22,7 @@ public class CheckBoxPage extends BasePage {
     private final By checkList = By.cssSelector("span[class='rct-title']");
     private final By uncheckedList = By.cssSelector("svg[class='rct-icon rct-icon-uncheck']");
     private final By checkedList = By.cssSelector("svg[class='rct-icon rct-icon-check']");
+    private final By resultChecked  = By.cssSelector("span[class='text-success']");
 
     WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
     public CheckBoxPage(WebDriver driver) {
@@ -37,6 +39,24 @@ public class CheckBoxPage extends BasePage {
 
     public List<WebElement> getUnfoldList(){
         return driver.findElements(checkList);
+    }
+
+    public List<String> getUnfoldListText(){
+        List<WebElement> l =  getUnfoldList();
+        ArrayList<String> list = new ArrayList<>();
+        for (WebElement webElement : l) {
+            list.add(webElement.getText().replaceAll(".doc", "").replaceAll(" ", "").toLowerCase(Locale.ROOT));
+        }
+        return list;
+    }
+
+    public List<String> getResultListText(){
+        List<WebElement> l =  driver.findElements(resultChecked);
+        ArrayList<String> list = new ArrayList<>();
+        for (WebElement webElement : l) {
+            list.add(webElement.getText().toLowerCase(Locale.ROOT));
+        }
+        return list;
     }
 
     public List<WebElement> getCheckedList(){
