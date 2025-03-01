@@ -3,6 +3,7 @@ package com.exaple.tread.ui;
 import org.example.thread.ui.pages.MainPage;
 import org.example.thread.ui.pages.elementspage.CheckBoxPage;
 import org.example.thread.ui.pages.elementspage.ElementsPage;
+import org.example.thread.ui.pages.elementspage.RadioButtonPage;
 import org.example.thread.ui.pages.elementspage.TextBoxPage;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
@@ -79,5 +80,32 @@ public class ElementsTests extends BaseTest{
         CheckBoxPage checkBoxPage = new CheckBoxPage(driver);
         checkBoxPage.expandAll();
         checkBoxPage.checkRandom();
+    }
+
+    @Test
+    public void yesRadioButtonTest(){
+        MainPage mainPage = new MainPage(driver);
+        mainPage.goToElements().goToRadioButton();
+        RadioButtonPage radioButtonPage = new RadioButtonPage(driver);
+        radioButtonPage.clickYesButton();
+        Assertions.assertEquals("Yes", radioButtonPage.getResult());
+    }
+
+    @Test
+    public void impressiveRadioButtonTest(){
+        MainPage mainPage = new MainPage(driver);
+        mainPage.goToElements().goToRadioButton();
+        RadioButtonPage radioButtonPage = new RadioButtonPage(driver);
+        radioButtonPage.clickImpressiveRadioButton();
+        Assertions.assertEquals("Impressive", radioButtonPage.getResult());
+    }
+
+    @Test
+    public void noRadioButtonTest(){
+        MainPage mainPage = new MainPage(driver);
+        mainPage.goToElements().goToRadioButton();
+        RadioButtonPage radioButtonPage = new RadioButtonPage(driver);
+        radioButtonPage.clickNoRadioButton();
+        Assertions.assertEquals("No", radioButtonPage.getResult());
     }
 }
