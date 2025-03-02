@@ -1,10 +1,7 @@
 package com.exaple.tread.ui;
 
 import org.example.thread.ui.pages.MainPage;
-import org.example.thread.ui.pages.elementspage.CheckBoxPage;
-import org.example.thread.ui.pages.elementspage.ElementsPage;
-import org.example.thread.ui.pages.elementspage.RadioButtonPage;
-import org.example.thread.ui.pages.elementspage.TextBoxPage;
+import org.example.thread.ui.pages.elementspage.*;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.openqa.selenium.WebElement;
@@ -107,5 +104,14 @@ public class ElementsTests extends BaseTest{
         RadioButtonPage radioButtonPage = new RadioButtonPage(driver);
         radioButtonPage.clickNoRadioButton();
         Assertions.assertEquals("No", radioButtonPage.getResult());
+    }
+
+    @Test
+    public void webTableTest(){
+        MainPage mainPage = new MainPage(driver);
+        mainPage.goToElements().goToWebTables();
+        WebTablesPage webTablesPage = new WebTablesPage(driver);
+        webTablesPage.clickAddButton();
+        webTablesPage.inputFirstName();
     }
 }
