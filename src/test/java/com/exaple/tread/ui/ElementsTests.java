@@ -112,6 +112,8 @@ public class ElementsTests extends BaseTest{
         mainPage.goToElements().goToWebTables();
         WebTablesPage webTablesPage = new WebTablesPage(driver);
         webTablesPage.clickAddButton();
-        webTablesPage.inputFirstName();
+        webTablesPage.inputFirstName().inputLastName()
+                .inputEmail().inputAge()
+                .inputSalary().inputDepartment().clickSubmitButton();
     }
 }
