@@ -5,6 +5,11 @@ import lombok.Getter;
 import org.example.thread.ui.pages.BasePage;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Locale;
 
 @Getter
 public class WebTablesPage extends BasePage {
@@ -16,6 +21,8 @@ public class WebTablesPage extends BasePage {
     private final By salaryField = By.id("salary");
     private final By departmentField = By.id("department");
     private final By submitButton = By.id("submit");
+    private final By table = By.cssSelector("div[class=\"rt-tr-group\"]");
+    private final By ONE_CELL = By.cssSelector("div[class=\"rt-td\"]");
 
 
 
@@ -67,5 +74,19 @@ public class WebTablesPage extends BasePage {
 
     public void clickSubmitButton() {
         driver.findElement(submitButton).click();
+    }
+
+    public int getTableSize() {
+        return driver.findElements(table).size();
+    }
+
+    public List<String> getTableRows() {
+        List<String> rows = new ArrayList<>();
+        List<WebElement> l =  driver.findElements(ONE_CELL);
+        for (WebElement webElement : l) {
+            if (!webElement.getText().equals(" "))
+            {rows.add(webElement.getText());}
+        }
+        return rows;
     }
 }
