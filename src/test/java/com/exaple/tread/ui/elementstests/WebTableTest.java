@@ -24,6 +24,14 @@ public class WebTableTest extends BaseTest {
 
         Assertions.assertTrue(tableValues.contains(webTablesPage.getEmailInput()));
         System.out.println(webTablesPage.getTableRows());
+    }
 
+    @Test
+    public void changeRowQuantityTest(){
+        MainPage mainPage = new MainPage(driver);
+        mainPage.goToElements().goToWebTables();
+        WebTablesPage webTablesPage = new WebTablesPage(driver);
+        int tableSize = webTablesPage.changeRowsQuantity();
+        Assertions.assertEquals(webTablesPage.getTableSize(), tableSize);
     }
 }

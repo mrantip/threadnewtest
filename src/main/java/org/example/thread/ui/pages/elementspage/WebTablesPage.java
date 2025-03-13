@@ -7,9 +7,7 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Locale;
+import java.util.*;
 
 @Getter
 public class WebTablesPage extends BasePage {
@@ -23,6 +21,8 @@ public class WebTablesPage extends BasePage {
     private final By submitButton = By.id("submit");
     private final By table = By.cssSelector("div[class=\"rt-tr-group\"]");
     private final By ONE_CELL = By.cssSelector("div[class=\"rt-td\"]");
+    private final By ROWS_CHANGE = By.cssSelector("select[aria-label='rows per page']");
+    //String rrrr = String.format("option[value=\"{x}\"]", x);
 
 
 
@@ -88,5 +88,14 @@ public class WebTablesPage extends BasePage {
             {rows.add(webElement.getText());}
         }
         return rows;
+    }
+
+    public int changeRowsQuantity(){
+        List<Integer> count =  Arrays.asList(5, 10, 20, 25, 50, 100);
+        Random random = new Random();
+        int index = random.nextInt(count.size());
+        String locator = String.format("option[value='%d']", count.get(index));
+        driver.findElement(By.cssSelector(locator)).click();
+        return count.get(index);
     }
 }
