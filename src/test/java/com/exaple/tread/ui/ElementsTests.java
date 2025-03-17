@@ -106,14 +106,5 @@ public class ElementsTests extends BaseTest{
         Assertions.assertEquals("No", radioButtonPage.getResult());
     }
 
-    @Test
-    public void webTableTest(){
-        MainPage mainPage = new MainPage(driver);
-        mainPage.goToElements().goToWebTables();
-        WebTablesPage webTablesPage = new WebTablesPage(driver);
-        webTablesPage.clickAddButton();
-        webTablesPage.inputFirstName().inputLastName()
-                .inputEmail().inputAge()
-                .inputSalary().inputDepartment().clickSubmitButton();
-    }
+
 }

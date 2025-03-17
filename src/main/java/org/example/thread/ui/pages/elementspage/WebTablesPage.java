@@ -6,78 +6,81 @@ import org.example.thread.ui.pages.BasePage;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.ui.WebDriverWait;
 
+import java.time.Duration;
 import java.util.*;
 
 @Getter
 public class WebTablesPage extends BasePage {
-    private final By addButton = By.id("addNewRecordButton");
-    private final By firstNameField = By.id("firstName");
-    private final By lastNameField = By.id("lastName");
-    private final By emailField = By.id("userEmail");
-    private final By ageField = By.id("age");
-    private final By salaryField = By.id("salary");
-    private final By departmentField = By.id("department");
-    private final By submitButton = By.id("submit");
-    private final By table = By.cssSelector("div[class=\"rt-tr-group\"]");
+    private final By ADD_BUTTON = By.id("addNewRecordButton");
+    private final By FIRST_NAME_FIELD = By.id("firstName");
+    private final By LAST_NAME_FIELD = By.id("lastName");
+    private final By EMAIL_FIELD = By.id("userEmail");
+    private final By AGE_FIELD = By.id("age");
+    private final By SALARY_FIELD = By.id("salary");
+    private final By DEPARTMENT_FIELD = By.id("department");
+    private final By SUBMIT_BUTTON = By.id("submit");
+    private final By TABLE = By.cssSelector("div[class=\"rt-tr-group\"]");
     private final By ONE_CELL = By.cssSelector("div[class=\"rt-td\"]");
     private final By ROWS_CHANGE = By.cssSelector("select[aria-label='rows per page']");
-    //String rrrr = String.format("option[value=\"{x}\"]", x);
+    private final By SEARCH_FIELD = By.id("searchBox");
+    private final By EDIT_BUTTON = By.cssSelector("span[title='Edit']");
 
-
+    WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
 
     Faker faker = new Faker();
-    private final String firstNameInput = faker.name().firstName();
-    private final String lastNameInput = faker.name().lastName();
-    private final String emailInput = faker.internet().emailAddress();
-    private final int ageInput = faker.number().numberBetween(0, 99);
-    private final int salaryInput = faker.number().numberBetween(0, 999999999);
-    private final String departmentInput = faker.company().industry();
+    private final String FIRST_NAME_INPUT = faker.name().firstName();
+    private final String LAST_NAME_INPUT = faker.name().lastName();
+    private final String EMAIL_INPUT = faker.internet().emailAddress();
+    private final int AGE_INPUT = faker.number().numberBetween(0, 99);
+    private final int SALARY_INPUT = faker.number().numberBetween(0, 999999999);
+    private final String DEPARTMENT_INPUT = faker.company().industry();
 
     public WebTablesPage(WebDriver driver) {
         super(driver);
     }
 
     public void clickAddButton() {
-        driver.findElement(addButton).click();
+        driver.findElement(ADD_BUTTON).click();
     }
 
     public WebTablesPage inputFirstName() {
-        driver.findElement(firstNameField).sendKeys(firstNameInput);
+        driver.findElement(FIRST_NAME_FIELD).sendKeys(FIRST_NAME_INPUT);
         return this;
     }
 
     public WebTablesPage inputLastName() {
-        driver.findElement(lastNameField).sendKeys(lastNameInput);
+        driver.findElement(LAST_NAME_FIELD).sendKeys(LAST_NAME_INPUT);
         return this;
     }
 
     public WebTablesPage inputEmail() {
-        driver.findElement(emailField).sendKeys(emailInput);
+        driver.findElement(EMAIL_FIELD).sendKeys(EMAIL_INPUT);
         return this;
     }
 
     public WebTablesPage inputAge() {
-        driver.findElement(ageField).sendKeys(String.valueOf(ageInput));
+        driver.findElement(AGE_FIELD).sendKeys(String.valueOf(AGE_INPUT));
         return this;
     }
 
     public WebTablesPage inputSalary() {
-        driver.findElement(salaryField).sendKeys(String.valueOf(salaryInput));
+        driver.findElement(SALARY_FIELD).sendKeys(String.valueOf(SALARY_INPUT));
         return this;
     }
 
     public WebTablesPage inputDepartment() {
-        driver.findElement(departmentField).sendKeys(departmentInput);
+        driver.findElement(DEPARTMENT_FIELD).sendKeys(DEPARTMENT_INPUT);
         return this;
     }
 
     public void clickSubmitButton() {
-        driver.findElement(submitButton).click();
+        driver.findElement(SUBMIT_BUTTON).click();
     }
 
     public int getTableSize() {
-        return driver.findElements(table).size();
+        return driver.findElements(TABLE).size();
     }
 
     public List<String> getTableRows() {
@@ -97,5 +100,16 @@ public class WebTablesPage extends BasePage {
         String locator = String.format("option[value='%d']", count.get(index));
         driver.findElement(By.cssSelector(locator)).click();
         return count.get(index);
+    }
+
+    public void searchPerson(String value) {
+        driver.findElement(SEARCH_FIELD).click();
+        driver.findElement(SEARCH_FIELD).sendKeys(value);
+    }
+
+    public void changePerson(String value) {
+        driver.findElement(EDIT_BUTTON).click();
+        driver.findElement(FIRST_NAME_FIELD).clear();
+        driver.findElement(FIRST_NAME_FIELD).sendKeys(value);
     }
 }

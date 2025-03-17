@@ -22,7 +22,7 @@ public class WebTableTest extends BaseTest {
 
         List<String> tableValues = webTablesPage.getTableRows();
 
-        Assertions.assertTrue(tableValues.contains(webTablesPage.getEmailInput()));
+        Assertions.assertTrue(tableValues.contains(webTablesPage.getEMAIL_INPUT()));
         System.out.println(webTablesPage.getTableRows());
     }
 
@@ -33,5 +33,44 @@ public class WebTableTest extends BaseTest {
         WebTablesPage webTablesPage = new WebTablesPage(driver);
         int tableSize = webTablesPage.changeRowsQuantity();
         Assertions.assertEquals(webTablesPage.getTableSize(), tableSize);
+    }
+
+    @Test
+    public void searchTest() {
+        MainPage mainPage = new MainPage(driver);
+        mainPage.goToElements().goToWebTables();
+        WebTablesPage webTablesPage = new WebTablesPage(driver);
+        webTablesPage.clickAddButton();
+        webTablesPage.inputFirstName().inputLastName()
+                .inputEmail().inputAge()
+                .inputSalary().inputDepartment().clickSubmitButton();
+        String email = webTablesPage.getEMAIL_INPUT();
+        webTablesPage.searchPerson(email);
+        List<String> tableValues = webTablesPage.getTableRows();
+
+        Assertions.assertTrue(tableValues.contains(webTablesPage.getEMAIL_INPUT()));
+    }
+
+    @Test
+    public void changePersonNameTest(){
+        MainPage mainPage = new MainPage(driver);
+        mainPage.goToElements().goToWebTables();
+        WebTablesPage webTablesPage = new WebTablesPage(driver);
+        webTablesPage.clickAddButton();
+        webTablesPage.inputFirstName().inputLastName()
+                .inputEmail().inputAge()
+                .inputSalary().inputDepartment().clickSubmitButton();
+
+        String nameBefore = webTablesPage.getFIRST_NAME_INPUT();
+        String nameAfter = "Test";
+
+        String email = webTablesPage.getEMAIL_INPUT();
+        webTablesPage.searchPerson(email);
+        webTablesPage.changePerson(nameAfter);
+        webTablesPage.clickSubmitButton();
+        List<String> tableValues = webTablesPage.getTableRows();
+
+        Assertions.assertTrue(tableValues.contains(nameAfter));
+        Assertions.assertFalse(tableValues.contains(nameBefore));
     }
 }
