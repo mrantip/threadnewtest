@@ -26,6 +26,7 @@ public class WebTablesPage extends BasePage {
     private final By ROWS_CHANGE = By.cssSelector("select[aria-label='rows per page']");
     private final By SEARCH_FIELD = By.id("searchBox");
     private final By EDIT_BUTTON = By.cssSelector("span[title='Edit']");
+    private final By DELETE_BUTTON = By.cssSelector("span[title='Delete']");
 
     WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
 
@@ -111,5 +112,9 @@ public class WebTablesPage extends BasePage {
         driver.findElement(EDIT_BUTTON).click();
         driver.findElement(FIRST_NAME_FIELD).clear();
         driver.findElement(FIRST_NAME_FIELD).sendKeys(value);
+    }
+
+    public void deletePerson(){
+        driver.findElement(DELETE_BUTTON).click();
     }
 }

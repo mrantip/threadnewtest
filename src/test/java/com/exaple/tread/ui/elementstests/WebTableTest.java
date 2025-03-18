@@ -73,4 +73,20 @@ public class WebTableTest extends BaseTest {
         Assertions.assertTrue(tableValues.contains(nameAfter));
         Assertions.assertFalse(tableValues.contains(nameBefore));
     }
+
+    @Test
+    public void deletePersonTest(){
+        MainPage mainPage = new MainPage(driver);
+        mainPage.goToElements().goToWebTables();
+        WebTablesPage webTablesPage = new WebTablesPage(driver);
+        webTablesPage.clickAddButton();
+        webTablesPage.inputFirstName().inputLastName()
+                .inputEmail().inputAge()
+                .inputSalary().inputDepartment().clickSubmitButton();
+        String email = webTablesPage.getEMAIL_INPUT();
+        webTablesPage.searchPerson(email);
+        webTablesPage.deletePerson();
+        List<String> tableValues = webTablesPage.getTableRows();
+        Assertions.assertFalse(tableValues.contains(webTablesPage.getEMAIL_INPUT()));
+    }
 }
