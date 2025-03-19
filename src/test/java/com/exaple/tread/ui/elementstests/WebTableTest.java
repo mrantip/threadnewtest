@@ -89,4 +89,9 @@ public class WebTableTest extends BaseTest {
         List<String> tableValues = webTablesPage.getTableRows();
         Assertions.assertFalse(tableValues.contains(webTablesPage.getEMAIL_INPUT()));
     }
+
+    @Test
+    public void doubleClicTest() {
+        MainPage mainPage = new MainPage(driver);
+    }
 }
