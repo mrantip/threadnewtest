@@ -5,30 +5,35 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 
 public class ElementsPage extends BasePage {
-    private final By textBox = By.xpath("//span[text()='Text Box']");
-    private final By checkBox = By.xpath("//span[text()='Check Box']");
-    private final By radioButton = By.xpath("//span[text()='Radio Button']");
-    private final By webTables = By.xpath("//span[text()='Web Tables']");
+    private final By TEXT_BOX = By.xpath("//span[text()='Text Box']");
+    private final By CHECK_BOX = By.xpath("//span[text()='Check Box']");
+    private final By RADIO_BUTTON = By.xpath("//span[text()='Radio Button']");
+    private final By WEB_TABLES = By.xpath("//span[text()='Web Tables']");
+    private final By BUTTONS = By.xpath("//span[text()='Buttons']");
 
     public ElementsPage(WebDriver driver) {
         super(driver);
     }
 
     public void goToTextBox() {
-        driver.findElement(textBox).click();
+        driver.findElement(TEXT_BOX).click();
 //        return new TextBoxPage(driver);
     }
 
     public void goToCheckBox() {
-        driver.findElement(checkBox).click();
+        driver.findElement(CHECK_BOX).click();
     }
 
     public void goToRadioButton() {
-        driver.findElement(radioButton).click();
+        driver.findElement(RADIO_BUTTON).click();
     }
 
     public void goToWebTables() {
-        driver.findElement(webTables).click();
+        driver.findElement(WEB_TABLES).click();
+    }
+
+    public void goToButtons() {
+        driver.findElement(BUTTONS).click();
     }
 
 }
