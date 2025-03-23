@@ -16,8 +16,10 @@ import java.util.List;
 public class ButtonsPage extends BasePage {
     private final By DOUBLE_CLICK_BUTTON = By.id("doubleClickBtn");
     private final By RIGHT_CLICK_BUTTON = By.id("rightClickBtn");
-    private final By CLICK_BUTTON = By.id("clickBtn");
+    private final By CLICK_BUTTON = By.xpath("//button[text()='Click Me']");
     private final By DOUBLE_CLICK_MESSAGE= By.id("doubleClickMessage");
+    private final By RIGHT_CLICK_MESSAGE= By.id("rightClickMessage");
+    private final By CLICK_BUTTON_MESSAGE= By.id("dynamicClickMessage");
 
     Actions actions = new Actions(driver);
 
@@ -28,6 +30,32 @@ public class ButtonsPage extends BasePage {
     public void doubleClick() {
         WebElement element = driver.findElement(DOUBLE_CLICK_BUTTON);
         actions.doubleClick(element).perform();
+    }
+
+    public void rightClick() {
+        WebElement element = driver.findElement(RIGHT_CLICK_BUTTON);
+        actions.contextClick(element).perform();
+    }
+
+    public void clickButton() {
+        WebElement element = driver.findElement(CLICK_BUTTON);
+        actions.click(element).perform();
+    }
+
+    public void clickAny(String button, String clickType) {
+        WebElement element;
+        if (button.equals("doubleClick")) {
+            element = driver.findElement(DOUBLE_CLICK_BUTTON);
+        }
+        if (button.equals("rightClick")) {
+            element = driver.findElement(RIGHT_CLICK_BUTTON);
+        }
+        if (button.equals("clickButton")) {
+            element = driver.findElement(CLICK_BUTTON);
+        }
+        if (clickType.equals("doubleClick")) {
+            actions.doubleClick(element).perform();
+        }
     }
 
     public List<WebElement> getMessages(By locator) {
