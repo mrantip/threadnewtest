@@ -54,11 +54,10 @@ public class ButtonsTest extends BaseTest {
         MainPage mainPage = new MainPage(driver);
         mainPage.goToElements().goToButtons();
         ButtonsPage buttonsPage = new ButtonsPage(driver);
-//        List<WebElement> beforeMessage = buttonsPage.getMessages(buttonsPage.getDOUBLE_CLICK_MESSAGE());
-//        Assertions.assertTrue(beforeMessage.isEmpty());
-        By locator = buttonsPage.getDOUBLE_CLICK_MESSAGE();
-        buttonsPage.clickButton();
-        List<WebElement> beforeMessage = buttonsPage.getMessages(buttonsPage.getDOUBLE_CLICK_MESSAGE());
-        Assertions.assertTrue(beforeMessage.isEmpty());
+
+        buttonsPage.performButtonAction(ButtonsPage.ButtonType.DOUBLE, ButtonsPage.ActionType.RIGHT_CLICK);
+
+        List<WebElement> Message = buttonsPage.getMessages(buttonsPage.getDOUBLE_CLICK_MESSAGE());
+        Assertions.assertTrue(Message.isEmpty());
     }
 }

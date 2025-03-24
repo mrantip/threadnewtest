@@ -42,21 +42,6 @@ public class ButtonsPage extends BasePage {
         actions.click(element).perform();
     }
 
-    public void clickAny(String button, String clickType) {
-        WebElement element;
-        if (button.equals("doubleClick")) {
-            element = driver.findElement(DOUBLE_CLICK_BUTTON);
-        }
-        if (button.equals("rightClick")) {
-            element = driver.findElement(RIGHT_CLICK_BUTTON);
-        }
-        if (button.equals("clickButton")) {
-            element = driver.findElement(CLICK_BUTTON);
-        }
-        if (clickType.equals("doubleClick")) {
-            actions.doubleClick(element).perform();
-        }
-    }
 
     public List<WebElement> getMessages(By locator) {
         return driver.findElements(locator);
@@ -68,5 +53,50 @@ public class ButtonsPage extends BasePage {
         WebElement textElement = wait.until(ExpectedConditions.visibilityOfElementLocated(locator));
         return textElement.getText();
 //        return driver.findElement(DOUBLE_CLICK_MESSAGE).getText();
+    }
+
+
+    public void performButtonAction(ButtonType buttonType, ActionType actionType) {
+        // Получаем локатор кнопки по её типу
+        By buttonLocator = getButtonLocator(buttonType);
+
+        // Находим элемент кнопки
+        WebElement button = driver.findElement(buttonLocator);
+
+        // Выполняем действие в зависимости от типа
+        switch (actionType) {
+            case DOUBLE_CLICK:
+                actions.doubleClick(button).perform();
+                break;
+            case RIGHT_CLICK:
+                actions.contextClick(button).perform();
+                break;
+            case LEFT_CLICK:
+                button.click();
+                break;
+            default:
+                throw new IllegalArgumentException("Неизвестный тип действия: " + actionType);
+        }
+    }
+
+    private By getButtonLocator(ButtonType buttonType) {
+        // Возвращаем локатор в зависимости от типа кнопки
+        return switch (buttonType) {
+            case DOUBLE -> DOUBLE_CLICK_BUTTON;
+            case RIGHT -> RIGHT_CLICK_BUTTON;
+            case LEFT -> CLICK_BUTTON;
+            default -> throw new IllegalArgumentException("Неизвестный тип кнопки: " + buttonType);
+        };
+    }
+
+
+    // Enum для типов кнопок
+    public enum ButtonType {
+        DOUBLE, RIGHT, LEFT
+    }
+
+    // Enum для типов действий
+    public enum ActionType {
+        DOUBLE_CLICK, RIGHT_CLICK, LEFT_CLICK
     }
 }
