@@ -93,8 +93,61 @@ public class LinksTest extends BaseTest  {
         mainPage.goToElements().goToLinks();
         LinksPage linksPage = new LinksPage(driver);
         linksPage.goToLink(linksPage.getCREATE_LINK());
-        String link = "/created";
-        waitForRequest("/api/create", 201, 5);
+        waitForRequest("/api/created", 201, 5);
+    }
+
+    @Test
+    public void noContentLinkTest()  {
+        MainPage mainPage = new MainPage(driver);
+        mainPage.goToElements().goToLinks();
+        LinksPage linksPage = new LinksPage(driver);
+        linksPage.goToLink(linksPage.getNO_CONTENT_LINK());
+        waitForRequest("/api/no-content", 204, 5);
+    }
+
+    @Test
+    public void movedLinkTest()  {
+        MainPage mainPage = new MainPage(driver);
+        mainPage.goToElements().goToLinks();
+        LinksPage linksPage = new LinksPage(driver);
+        linksPage.goToLink(linksPage.getMOVED_LINK());
+        waitForRequest("/api/moved", 301, 5);
+    }
+
+    @Test
+    public void badRequestLinkTest()  {
+        MainPage mainPage = new MainPage(driver);
+        mainPage.goToElements().goToLinks();
+        LinksPage linksPage = new LinksPage(driver);
+        linksPage.goToLink(linksPage.getBAD_REQUEST_LINK());
+        waitForRequest("/api/bad-request", 400, 5);
+    }
+
+    @Test
+    public void unauthorizedLinkTest()  {
+        MainPage mainPage = new MainPage(driver);
+        mainPage.goToElements().goToLinks();
+        LinksPage linksPage = new LinksPage(driver);
+        linksPage.goToLink(linksPage.getUNAUTHORIZED_LINK());
+        waitForRequest("/api/unauthorized", 401, 5);
+    }
+
+    @Test
+    public void forbiddenLinkTest()  {
+        MainPage mainPage = new MainPage(driver);
+        mainPage.goToElements().goToLinks();
+        LinksPage linksPage = new LinksPage(driver);
+        linksPage.goToLink(linksPage.getFORBIDDEN_LINK());
+        waitForRequest("/api/forbidden", 403, 5);
+    }
+
+    @Test
+    public void invalidUrlLinkTest()  {
+        MainPage mainPage = new MainPage(driver);
+        mainPage.goToElements().goToLinks();
+        LinksPage linksPage = new LinksPage(driver);
+        linksPage.goToLink(linksPage.getNOT_FOUND_LINK());
+        waitForRequest("/api/invalid-url", 404, 5);
     }
 
 }
