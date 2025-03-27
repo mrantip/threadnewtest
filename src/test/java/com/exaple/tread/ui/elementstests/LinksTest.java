@@ -2,43 +2,57 @@ package com.exaple.tread.ui.elementstests;
 
 import com.browserup.bup.BrowserUpProxy;
 import com.browserup.bup.BrowserUpProxyServer;
+import com.browserup.bup.proxy.CaptureType;
 import com.exaple.tread.ui.BaseTest;
 import org.example.thread.ui.pages.MainPage;
 import org.example.thread.ui.pages.elementspage.LinksPage;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.openqa.selenium.Dimension;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WindowType;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.Proxy;
 import com.browserup.bup.client.ClientUtil;
+import org.openqa.selenium.devtools.DevTools;
+import org.openqa.selenium.devtools.v131.network.Network;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.time.Duration;
 import java.util.ArrayList;
+import java.util.Optional;
+import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.ExecutionException;
+import java.util.concurrent.TimeUnit;
+import java.util.concurrent.TimeoutException;
 
-public class LinksTest extends BaseTest implements BaseTest.UiTestSetup {
 
-//    private WebDriver driver;
-//    private BrowserUpProxy proxy;
-//
+public class LinksTest extends BaseTest  {
+
+
 //    @BeforeEach
 //    public void setup() {
-//        // 1. Запуск прокси
-//        proxy = new BrowserUpProxyServer();
-//        proxy.start(0);  // Случайный порт
+//        driver = new ChromeDriver();
+//        driver.manage().window().setSize(new Dimension(1920, 1080));
+//        driver.manage().timeouts().pageLoadTimeout(Duration.ofSeconds(20));
+//        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(20));
+//        driver.get("http://85.192.34.140:8081/");
+//        DevTools devTools = driver.getDevTools();
+//        devTools.createSession();
+//        devTools.send(Network.enable(Optional.empty(), Optional.empty(), Optional.empty()));
 //
-//        // 2. Настройка прокси для Selenium
-//        Proxy seleniumProxy = ClientUtil.createSeleniumProxy(proxy);
-//        ChromeOptions options = new ChromeOptions();
-//        options.setProxy(seleniumProxy);
-//        options.setAcceptInsecureCerts(true);
-//
-//        driver = new ChromeDriver(options);
+
+//        requestSent = new CompletableFuture<>();
+//        devTools.addListener(Network.requestWillBeSent(), request -> {
+//            if (request.getRequest().getUrl().contains(link)) {
+//                requestSent.complete(true);
+//            }
+//        });
 //    }
+
 
     @Test
     public void simpleLinkTest() {
@@ -70,6 +84,17 @@ public class LinksTest extends BaseTest implements BaseTest.UiTestSetup {
         String title = driver.getTitle();
         Assertions.assertEquals(currentUrl, "http://85.192.34.140:8081/");
         Assertions.assertEquals(title, "ThreadQa");
+    }
+
+    @Test
+    public void createdLinkTest()  {
+
+        MainPage mainPage = new MainPage(driver);
+        mainPage.goToElements().goToLinks();
+        LinksPage linksPage = new LinksPage(driver);
+        linksPage.goToLink(linksPage.getCREATE_LINK());
+        String link = "/created";
+        waitForRequest("/api/create", 201, 5);
     }
 
 }
