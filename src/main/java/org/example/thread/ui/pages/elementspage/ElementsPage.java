@@ -11,6 +11,7 @@ public class ElementsPage extends BasePage {
     private final By WEB_TABLES = By.xpath("//span[text()='Web Tables']");
     private final By BUTTONS = By.xpath("//span[text()='Buttons']");
     private final By LINKS = By.xpath("//span[text()='Links']");
+    private final By UPLOAD_DOWNLOAD = By.xpath("//span[text()='Upload and Download']");
 
     public ElementsPage(WebDriver driver) {
         super(driver);
@@ -39,6 +40,10 @@ public class ElementsPage extends BasePage {
 
     public void goToLinks() {
         driver.findElement(LINKS).click();
+    }
+
+    public void goToUploadDownload() {
+        driver.findElement(UPLOAD_DOWNLOAD).click();
     }
 
 }

@@ -24,6 +24,7 @@ public class BaseTest {
     protected WebDriver driver;
     protected DevTools devTools;
     ChromeOptions options = new ChromeOptions();
+    private String downloadPath = System.getProperty("user.dir") + "/downloads";
 
     @BeforeAll
     public static void downloadDriver() {
