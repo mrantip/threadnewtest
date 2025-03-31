@@ -13,6 +13,8 @@ import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.devtools.DevTools;
 import org.openqa.selenium.devtools.v133.network.Network;
+import org.openqa.selenium.support.ui.WebDriverWait;
+
 import java.util.concurrent.CompletableFuture;
 
 import java.time.Duration;
@@ -25,6 +27,7 @@ public class BaseTest {
     protected DevTools devTools;
     ChromeOptions options = new ChromeOptions();
     private String downloadPath = System.getProperty("user.dir") + "/downloads";
+    protected WebDriverWait wait;
 
     @BeforeAll
     public static void downloadDriver() {
@@ -34,6 +37,7 @@ public class BaseTest {
     @BeforeEach
     public void setUp() {
         driver = new ChromeDriver(options);
+        wait = new WebDriverWait(driver, Duration.ofSeconds(10));
         driver.manage().window().setSize(new Dimension(1920, 1080));
         driver.manage().timeouts().pageLoadTimeout(Duration.ofSeconds(20));
         driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(20));
