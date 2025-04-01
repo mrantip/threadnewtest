@@ -44,4 +44,13 @@ public class DynamicPropertiesTest extends BaseTest {
 
         dynamicPropertiesPage.checkColor();
     }
+
+    @Test
+    public void visibleButtonAfter5SecTest() {
+        MainPage mainPage = new MainPage(driver);
+        mainPage.goToElements().goToDynamicProperties();
+        DynamicPropertiesPage dynamicPropertiesPage = new DynamicPropertiesPage(driver);
+
+        Assertions.assertTrue(driver.findElements(dynamicPropertiesPage.getVISIBLE_WAIT_BUTTON()).isEmpty());
+    }
 }
