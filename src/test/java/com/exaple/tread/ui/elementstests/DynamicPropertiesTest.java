@@ -8,6 +8,8 @@ import org.junit.jupiter.api.Test;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 
+import java.time.Duration;
+
 public class DynamicPropertiesTest extends BaseTest {
 
     @Test
@@ -51,6 +53,24 @@ public class DynamicPropertiesTest extends BaseTest {
         mainPage.goToElements().goToDynamicProperties();
         DynamicPropertiesPage dynamicPropertiesPage = new DynamicPropertiesPage(driver);
 
-        Assertions.assertTrue(driver.findElements(dynamicPropertiesPage.getVISIBLE_WAIT_BUTTON()).isEmpty());
+        // 2. Мгновенная проверка отсутствия кнопки (без ожидания)
+        try {
+            // Проверяем отсутствие элемента без неявного ожидания
+            driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(0)); // Отключаем неявное ожидание
+            Assertions.assertTrue(driver.findElements(dynamicPropertiesPage.getVISIBLE_WAIT_BUTTON()).isEmpty(),
+                    "Кнопка не должна присутствовать при загрузке страницы");
+        } finally {
+            // Восстанавливаем неявное ожидание
+            driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
+
+            //Assertions.assertTrue(driver.findElements(dynamicPropertiesPage.getVISIBLE_WAIT_BUTTON()).isEmpty());
+        }
+
+        // 3. Ждем появления кнопки (5 секунд)
+        WebElement button = wait.until(ExpectedConditions.presenceOfElementLocated(dynamicPropertiesPage.getVISIBLE_WAIT_BUTTON()));
+
+        // 4. Проверяем, что кнопка стала видимой
+        wait.until(ExpectedConditions.visibilityOf(button));
+        Assertions.assertTrue(button.isDisplayed(), "Кнопка должна быть видимой через 5 секунд");
     }
 }
