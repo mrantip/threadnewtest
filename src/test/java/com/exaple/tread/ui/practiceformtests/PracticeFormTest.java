@@ -14,5 +14,8 @@ public class PracticeFormTest extends BaseTest {
         PracticeFormPage practiceFormPage = new PracticeFormPage(driver);
 
         practiceFormPage.inputFirstName().inputLastName();
+
+        String s = practiceFormPage.getFirstName();
+        System.out.println(s);
     }
 }
