@@ -7,11 +7,16 @@ import org.example.thread.ui.pages.BasePage;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 
+import java.util.Random;
+
 @Getter
 public class PracticeFormPage extends BasePage {
+    Random random = new Random();
+
     private final By FIRST_NAME = By.id("firstName");
     private final By LAST_NAME = By.id("lastName");
     private final By EMAIL = By.id("userEmail");
+    private final By GENDER = By.xpath("//div[contains(@class, 'custom-control')]/label[starts-with(@for, 'gender-radio-')]");
     private final By MOBILE = By.id("userNumber");
     private final By CURRENT_ADDRESS = By.id("currentAddress");
 
@@ -52,4 +57,6 @@ public class PracticeFormPage extends BasePage {
         driver.findElement(CURRENT_ADDRESS).sendKeys(currentAddress);
         return this;
     }
+
+    // "Hindi", "English", "Maths", "Physics", "Chemistry", "Biology", "Computer Science", "Commerce", "Accounting", "Economics", "Arts", "Social Studies", "History", "Civics"
 }
