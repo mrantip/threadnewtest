@@ -13,9 +13,9 @@ public class PracticeFormTest extends BaseTest {
         mainPage.goToForms().goToPracticeForm();
         PracticeFormPage practiceFormPage = new PracticeFormPage(driver);
 
-        practiceFormPage.inputFirstName().inputLastName();
+        practiceFormPage.inputFirstName().inputLastName().clickRandomGender();
 
         String s = practiceFormPage.getFirstName();
-        System.out.println(s);
+        System.out.println(practiceFormPage.getSelectedGender());
     }
 }

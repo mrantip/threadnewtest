@@ -6,7 +6,9 @@ import org.example.thread.ui.data.Person;
 import org.example.thread.ui.pages.BasePage;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 
+import java.util.List;
 import java.util.Random;
 
 @Getter
@@ -53,9 +55,26 @@ public class PracticeFormPage extends BasePage {
         return this;
     }
 
+    public PracticeFormPage clickRandomGender() {
+        Random random = new Random();
+        List<WebElement> genders = driver.findElements(GENDER);
+        WebElement randomGender = genders.get(random.nextInt(genders.size()));
+        randomGender.click();
+        return this;
+    }
+
     public PracticeFormPage inputCurrentAddress() {
         driver.findElement(CURRENT_ADDRESS).sendKeys(currentAddress);
         return this;
+    }
+
+    public String getSelectedGender() {
+        List<WebElement> genders = driver.findElements(GENDER);
+        return driver.findElements(GENDER).stream()
+                .filter(WebElement::isSelected)
+                .findFirst()
+                .map(e -> e.getAttribute("for"))
+                .orElse("No gender selected");
     }
 
     // "Hindi", "English", "Maths", "Physics", "Chemistry", "Biology", "Computer Science", "Commerce", "Accounting", "Economics", "Arts", "Social Studies", "History", "Civics"
