@@ -77,5 +77,5 @@ public class PracticeFormPage extends BasePage {
                 .orElse("No gender selected");
     }
 
-    // "Hindi", "English", "Maths", "Physics", "Chemistry", "Biology", "Computer Science", "Commerce", "Accounting", "Economics", "Arts", "Social Studies", "History", "Civics"
+    //   "Hindi", "English", "Maths", "Physics", "Chemistry", "Biology", "Computer Science", "Commerce", "Accounting", "Economics", "Arts", "Social Studies", "History", "Civics"
 }
